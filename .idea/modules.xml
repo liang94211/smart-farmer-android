@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/arad/arad.iml" filepath="$PROJECT_DIR$/arad/arad.iml" />
       <module fileurl="file://$PROJECT_DIR$/l2_im/l2_im.iml" filepath="$PROJECT_DIR$/l2_im/l2_im.iml" />
       <module fileurl="file://$PROJECT_DIR$/l2_imageselector/l2_imageselector.iml" filepath="$PROJECT_DIR$/l2_imageselector/l2_imageselector.iml" />
       <module fileurl="file://$PROJECT_DIR$/l2_pay/l2_pay.iml" filepath="$PROJECT_DIR$/l2_pay/l2_pay.iml" />

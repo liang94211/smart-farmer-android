@@ -33,7 +33,7 @@ dependencies {
 
     compile project(':l2_recyclerview')
 
-    compile rootProject.ext.dependencies["arad"]
+    compile project(':arad')
     compile rootProject.ext.dependencies["banner"]
     compile rootProject.ext.dependencies["mutiltype"]
 }

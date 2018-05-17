@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".ui.layer1.RetrofitActivity">
         </activity>
-        <activity android:name=".ui.layer2.imageselector.ImageSelectorMainActivity"/>
         <activity android:name=".ui.layer2.recycleview.classic.DemoClassicPTRActivity">
         </activity>
         <activity android:name=".ui.layer2.recycleview.storehouse.StoreHouseActivity">

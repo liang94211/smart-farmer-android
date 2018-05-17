@@ -7,21 +7,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.AlbumLoader;
-import com.yuyh.library.imgsel.common.ImageLoader;
 
 /**
  * 图片加载器
  * Created by Beanu on 2016/12/15.
  */
 
-public class GlideLoader implements ImageLoader, AlbumLoader {
-    @Override
-    public void displayImage(Context context, String path, ImageView imageView) {
-        Glide.with(context)
-                .load(path)
-                .apply(RequestOptions.centerCropTransform())
-                .into(imageView);
-    }
+public class GlideLoader implements  AlbumLoader {
+
 
     @Override
     public void loadAlbumFile(ImageView imageView, AlbumFile albumFile, int viewWidth, int viewHeight) {

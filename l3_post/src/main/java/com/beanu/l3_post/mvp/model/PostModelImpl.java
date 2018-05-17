@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.beanu.arad.http.RxHelper;
 import com.beanu.arad.utils.FileUtils;
 import com.beanu.l3_common.model.api.API;
+import com.beanu.l3_common.util.AppHolder;
 import com.beanu.l3_post.model.api.APIPostService;
 import com.beanu.l3_post.mvp.contract.PostContract;
 import com.beanu.l3_post.upload.IProgressListener;
@@ -45,20 +46,28 @@ public class PostModelImpl implements PostContract.Model {
     }
 
     private Observable<JsonObject> uploadPicture(AlbumFile albumFile, Map<String, Object> params, IProgressListener<AlbumFile> listener) {
+        Map<String, RequestBody> map = new HashMap<>();
+        String userId = AppHolder.getInstance().user.getId();
+        RequestBody userIdBody = RequestBody.create(MediaType.parse("multipart/form-data"), userId);
+        map.put("uid", userIdBody);
 
         File file = FileUtils.getFileByPath(albumFile.getPath());
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
 
-        return API.getInstance(APIPostService.class).upload_img(params, part).compose(RxHelper.handleResult());
+        return API.getInstance(APIPostService.class).upload_img(map, part).compose(RxHelper.<JsonObject>handleResult());
     }
 
     private Observable<JsonObject> uploadVideo(AlbumFile albumFile, Map<String, Object> params, IProgressListener<AlbumFile> listener) {
+        Map<String, RequestBody> map = new HashMap<>();
+        String userId = AppHolder.getInstance().user.getId();
+        RequestBody userIdBody = RequestBody.create(MediaType.parse("multipart/form-data"), userId);
+        map.put("uid", userIdBody);
 
         File file = FileUtils.getFileByPath(albumFile.getPath());
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
 
-        return API.getInstance(APIPostService.class).upload_video(params, part).compose(RxHelper.handleResult());
+        return API.getInstance(APIPostService.class).upload_video(map, part).compose(RxHelper.<JsonObject>handleResult());
     }
 }

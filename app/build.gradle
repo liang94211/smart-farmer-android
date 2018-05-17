@@ -32,6 +32,11 @@ android {
 //            signingConfig signingConfigs.config
         }
     }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -53,9 +58,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
     //第一层
-    compile rootProject.ext.dependencies["arad"]
+    compile project(':arad')
     //第二层
-    compile project(':l2_im')
     compile project(':l2_imageselector')
     compile project(':l2_pay')
     compile project(':l2_recyclerview')
@@ -67,6 +71,6 @@ dependencies {
     compile project(':l3_login')
     compile project(':l3_shoppingcart')
     compile project(':l3_search')
-
+    compile project(':l3_post')
     //第四层
 }

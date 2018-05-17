@@ -53,6 +53,6 @@ dependencies {
 
     //第三方依赖
     compile rootProject.ext.dependencies["wechat"]
-    compile rootProject.ext.dependencies["arad"]
+    compile project(':arad')
 
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.beanu.arad.support.recyclerview.divider.HorizontalDividerItemDecoration;
+import com.beanu.l3_post.L3PostActivity;
 import com.beanu.sf.model.bean.LayerItem;
 import com.beanu.sf.ui.layer1.RetrofitActivity;
 import com.beanu.sf.ui.layer1.RxjavaActivity;
@@ -45,7 +46,7 @@ public class MainListFragment extends Fragment {
     private static Class[] className1 = {RetrofitActivity.class, RxjavaActivity.class};
 
     private static String[] titles2 = {"图片选择器", "二维码扫描", "支付宝+微信支付", "分享／第三方登录", "聊天IM", "RecycleView的各种用法（最简用法）"};
-    private static Class[] className2 = {RetrofitActivity.class, RxjavaActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class};
+    private static Class[] className2 = {L3PostActivity.class, RxjavaActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class, DemoSimplestActivity.class};
 
     private static String[] titles3 = {"登录模块", "购物车模块", "引导页模块", "搜索模块"};
     private static Class[] className3 = {LoginDemoActivity.class, CartDemoActivity.class, GuideDemoActivity.class, SearchDemoActivity.class};

@@ -32,7 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //第三方依赖
-    compile rootProject.ext.dependencies["arad"]
+    compile project(':arad')
     compile rootProject.ext.dependencies["mutiltype"]
     compile rootProject.ext.dependencies["ink-page-indicator"]
     compile rootProject.ext.dependencies["ultra-ptr"]
