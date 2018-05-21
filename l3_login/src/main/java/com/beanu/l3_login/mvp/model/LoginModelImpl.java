@@ -1,6 +1,10 @@
 package com.beanu.l3_login.mvp.model;
 
+import com.beanu.arad.http.RxHelper;
+import com.beanu.l3_common.model.api.API;
 import com.beanu.l3_common.model.bean.User;
+import com.beanu.l3_login.model.APILoginService;
+import com.beanu.l3_login.model.bean.PreLogin;
 import com.beanu.l3_login.mvp.contract.LoginContract;
 
 import io.reactivex.Observable;
@@ -29,6 +33,14 @@ public class LoginModelImpl implements LoginContract.Model {
                 e.onComplete();
             }
         });
+    }
+
+    @Override
+    public Observable<PreLogin> preLogin(String token, int loginType) {
+        return API.getInstance(APILoginService.class)
+                .preLogin(token, loginType)
+                .compose(RxHelper.<PreLogin>handleResult());
+
     }
 
 }

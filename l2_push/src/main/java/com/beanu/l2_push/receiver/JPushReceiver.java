@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.beanu.l2_push.IPushListener;
-import com.beanu.l2_push.PhoneTarget;
 import com.beanu.l2_push.PushMessage;
 
 import org.json.JSONException;
@@ -27,20 +25,6 @@ public class JPushReceiver extends BroadcastReceiver {
 
     private static final String TAG = "JPush";
 
-    private static IPushListener mPushListener;
-
-    public static IPushListener getPushListener() {
-        return mPushListener;
-    }
-
-    public static void registerPushListener(IPushListener mPushListener) {
-        JPushReceiver.mPushListener = mPushListener;
-    }
-
-    public static void clearPushListener() {
-        mPushListener = null;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -55,51 +39,38 @@ public class JPushReceiver extends BroadcastReceiver {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
             Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
 
-            if (mPushListener != null) {
-                mPushListener.onRegister(context, regId);
-            }
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + extraMessage);
 
-            if (mPushListener != null) {
-                PushMessage message = new PushMessage();
-                message.setTitle(bundle.getString(JPushInterface.EXTRA_TITLE));
-                message.setMessageID(messageId);
-                message.setMessage(bundle.getString(JPushInterface.EXTRA_MESSAGE));
-                message.setExtra(processExtraMessage(extraMessage));
-                message.setTarget(PhoneTarget.JPUSH);
-                mPushListener.onCustomMessage(context, message);
-            }
+            PushMessage message = new PushMessage();
+            message.setTitle(bundle.getString(JPushInterface.EXTRA_TITLE));
+            message.setMessageID(messageId);
+            message.setMessage(bundle.getString(JPushInterface.EXTRA_MESSAGE));
+            message.setExtra(processExtraMessage(extraMessage));
 
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知 其ID为: " + notifactionId);
-            if (mPushListener != null) {
-                PushMessage message = new PushMessage();
-                message.setNotifyID(notifactionId);
-                message.setMessageID(messageId);
-                message.setTitle(bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
-                message.setMessage(bundle.getString(JPushInterface.EXTRA_ALERT));
-                message.setExtra(processExtraMessage(extraMessage));
-                message.setTarget(PhoneTarget.JPUSH);
-                mPushListener.onMessage(context, message);
-            }
+            PushMessage message = new PushMessage();
+            message.setNotifyID(notifactionId);
+            message.setMessageID(messageId);
+            message.setTitle(bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
+            message.setMessage(bundle.getString(JPushInterface.EXTRA_ALERT));
+            message.setExtra(processExtraMessage(extraMessage));
+
 
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
-            if (mPushListener != null) {
-                PushMessage message = new PushMessage();
-                message.setNotifyID(notifactionId);
-                message.setMessageID(messageId);
-                message.setTitle(bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
-                message.setMessage(bundle.getString(JPushInterface.EXTRA_ALERT));
-                message.setExtra(processExtraMessage(extraMessage));
-                message.setTarget(PhoneTarget.JPUSH);
-                mPushListener.onMessageClicked(context, message);
-            }
+            PushMessage message = new PushMessage();
+            message.setNotifyID(notifactionId);
+            message.setMessageID(messageId);
+            message.setTitle(bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
+            message.setMessage(bundle.getString(JPushInterface.EXTRA_ALERT));
+            message.setExtra(processExtraMessage(extraMessage));
+
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
@@ -172,5 +143,4 @@ public class JPushReceiver extends BroadcastReceiver {
 
 
     }
-
 }

@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/arad" />
             <option value="$PROJECT_DIR$/l2_im" />
             <option value="$PROJECT_DIR$/l2_imageselector" />
             <option value="$PROJECT_DIR$/l2_pay" />

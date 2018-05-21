@@ -11,9 +11,6 @@ import android.widget.Toast;
 import com.beanu.arad.base.ToolBarActivity;
 import com.beanu.l2_shareutil.LoginUtil;
 import com.beanu.l2_shareutil.ShareUtil;
-import com.beanu.l2_shareutil.login.LoginPlatform;
-import com.beanu.l2_shareutil.login.LoginResult;
-import com.beanu.l2_shareutil.share.SharePlatform;
 import com.beanu.sf.R;
 
 import butterknife.BindView;

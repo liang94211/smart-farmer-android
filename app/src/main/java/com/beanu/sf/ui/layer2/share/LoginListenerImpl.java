@@ -4,8 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.beanu.l2_shareutil.login.LoginListener;
-import com.beanu.l2_shareutil.login.LoginPlatform;
-import com.beanu.l2_shareutil.login.LoginResult;
 
 /**
  * Created by Administrator on 2017/1/18.

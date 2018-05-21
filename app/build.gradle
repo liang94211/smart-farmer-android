@@ -55,7 +55,6 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-annotation"]
 
     //glide
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
     //第一层
     compile project(':arad')

@@ -1,4 +1,6 @@
-package com.beanu.l2_shareutil.login.result;
+package com.beanu.l2_shareutil.login;
+
+import java.util.Map;
 
 /**
  * Created by shaohui on 2016/12/1.
@@ -6,22 +8,11 @@ package com.beanu.l2_shareutil.login.result;
 
 public class BaseUser {
 
-    /**
-     * sex
-     * 0. 未知
-     * 1. 男
-     * 2. 女
-     */
-
     private String openId;
-
     private String nickname;
-
     private int sex;
-
     private String headImageUrl;
 
-    private String headImageUrlLarge;
 
     public String getOpenId() {
         return openId;
@@ -55,11 +46,13 @@ public class BaseUser {
         this.headImageUrl = headImageUrl;
     }
 
-    public String getHeadImageUrlLarge() {
-        return headImageUrlLarge;
+    public static BaseUser getBaseUser(Map<String, String> resultMap) {
+        BaseUser baseUser = new BaseUser();
+        baseUser.setOpenId(resultMap.get("uid"));
+        baseUser.setNickname(resultMap.get("name"));
+        baseUser.setSex("男".equals(resultMap.get("gender")) ? 0 : 1);
+        baseUser.setHeadImageUrl(resultMap.get("iconurl"));
+        return baseUser;
     }
 
-    public void setHeadImageUrlLarge(String headImageUrlLarge) {
-        this.headImageUrlLarge = headImageUrlLarge;
-    }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.beanu.l2_shareutil.share.ShareListener;
-import com.beanu.l2_shareutil.share.SharePlatform;
 
 /**
  * Created by Lotte on 2017/1/18.

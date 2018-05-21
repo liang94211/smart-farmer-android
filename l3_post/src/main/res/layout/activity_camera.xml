@@ -14,7 +14,7 @@
         app:duration_max="10000"
         app:iconMargin="20dp"
         app:iconSize="30dp"
-        app:iconSrc="@drawable/ic_camera_enhance_black_24dp"/>
+        app:iconSrc="@drawable/ic_camera_change_24dp"/>
 
     <!--<TextView-->
     <!--android:id="@+id/text_time"-->

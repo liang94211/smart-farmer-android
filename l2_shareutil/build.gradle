@@ -1,29 +1,19 @@
- apply plugin: 'com.android.library'
+apply plugin: 'com.android.library'
 
 android {
-    signingConfigs {
-        config_debug {
-            keyAlias 'qcxy'
-            keyPassword 'qcxy123'
-            storeFile file('qcxy.jks')
-            storePassword 'qcxy123'
-        }
-    }
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-//        if (isL2Debug.toBoolean()) {
-//            applicationId "com.tuoyan.qcxy"
-//        }
+
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-        manifestPlaceholders = [
-                qq_id: "1105143764"
-        ]
+//        在主工程中配置
+//        manifestPlaceholders = [qqappid: "你的qq appid"]
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -34,11 +24,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-//            if (isL2Debug.toBoolean()) {//debug模式使用config2签名配置
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.config_debug
-//            }
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -52,7 +39,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //第三方依赖
-    compile rootProject.ext.dependencies["wechat"]
     compile project(':arad')
+
+    compile 'com.umeng.sdk:share-core:6.9.1'
+    compile 'com.umeng.sdk:share-qq:6.9.1.1'
+    compile 'com.umeng.sdk:share-wechat:6.9.1'
+    compile 'com.umeng.sdk:share-sina:6.9.1'
 
 }

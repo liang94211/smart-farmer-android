@@ -3,6 +3,7 @@ package com.beanu.l3_login.model;
 
 import com.beanu.l3_common.model.HttpModel;
 import com.beanu.l3_common.model.bean.User;
+import com.beanu.l3_login.model.bean.PreLogin;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -53,6 +54,13 @@ public interface APILoginService {
     @POST("retrievePassword")
     Observable<HttpModel<String>> change_pwd(@Field("account") String phone, @Field("password") String password, @Field("code") String code);
 
+
+    /**
+     * 第三方预登陆(是否需要绑定手机号)
+     */
+    @FormUrlEncoded
+    @POST("preLogin")
+    Observable<HttpModel<PreLogin>> preLogin(@Field("token") String token, @Field("loginType") int type);
 
 }
 

@@ -1,15 +1,9 @@
 package com.beanu.sf;
 
-import android.content.Context;
-import android.widget.ImageView;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.beanu.arad.AradApplication;
 import com.beanu.arad.AradApplicationConfig;
-import com.beanu.l2_shareutil.ShareConfig;
 import com.beanu.l2_shareutil.ShareManager;
-import com.bumptech.glide.Glide;
-import com.youth.banner.loader.ImageLoader;
 
 /**
  * Created by Administrator on 2017/1/17.

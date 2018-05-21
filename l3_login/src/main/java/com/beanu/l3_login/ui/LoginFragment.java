@@ -1,11 +1,11 @@
 package com.beanu.l3_login.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.beanu.arad.Arad;
 import com.beanu.arad.base.ToolBarFragment;
 import com.beanu.arad.utils.ToastUtils;
-import com.beanu.l2_shareutil.LoginUtil;
-import com.beanu.l2_shareutil.login.LoginListener;
-import com.beanu.l2_shareutil.login.LoginPlatform;
-import com.beanu.l2_shareutil.login.LoginResult;
-import com.beanu.l3_common.util.Constants;
+import com.beanu.l2_shareutil.LoginManager;
+import com.beanu.l2_shareutil.login.BaseUser;
+import com.beanu.l2_shareutil.login.ThirdLoginListener;
 import com.beanu.l3_login.R;
 import com.beanu.l3_login.mvp.contract.LoginContract;
 import com.beanu.l3_login.mvp.model.LoginModelImpl;
 import com.beanu.l3_login.mvp.presenter.LoginPresenterImpl;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 
 /**
@@ -40,40 +38,40 @@ public class LoginFragment extends ToolBarFragment<LoginPresenterImpl, LoginMode
     ImageButton mBtnLoginWeChat;
     ImageButton mBtnLoginQQ;
 
+    private LoginManager mLoginManager;
+
     //第三方登录监听
-    final LoginListener mLoginListener = new LoginListener() {
+    private ThirdLoginListener mThirdLoginListener = new ThirdLoginListener() {
         @Override
-        public void loginSuccess(LoginResult result) {
-            //登录成功， 如果你选择了获取用户信息，可以通过
+        public void loginStart(int platform) {
 
-            String loginType = "0";
-            if (result.getPlatform() == LoginPlatform.QQ) {
-                loginType = "1";
-            } else if (result.getPlatform() == LoginPlatform.WX) {
-                loginType = "2";
-            }
-            hideProgress();
-
-
-            showProgress();
-            Arad.preferences.putString(Constants.P_LOGIN_OPENID, result.getToken().getOpenid());
-            Arad.preferences.flush();
-
-            mPresenter.login(null, null, loginType, result.getToken().getOpenid(), result.getUserInfo().getSex(), result.getUserInfo().getHeadImageUrl(), result.getUserInfo().getNickname());
         }
 
         @Override
-        public void loginFailure(Exception e) {
-            Log.i("TAG", "登录失败");
+        public void loginSuccess(BaseUser result, int platform) {
+            mPresenter.preLogin(result, platform);
+        }
 
-            hideProgress();
+        @Override
+        public void loginFailure(Throwable e) {
+            ToastUtils.showShort("登录失败");
         }
 
         @Override
         public void loginCancel() {
+            ToastUtils.showShort("登录取消");
+        }
 
-            hideProgress();
-            Log.i("TAG", "登录取消");
+        @Override
+        public int getLoginPlatform(SHARE_MEDIA share_media) {
+            switch (share_media) {
+                case WEIXIN:
+                    return 1;
+                case QQ:
+                    return 2;
+                default:
+                    return 3;
+            }
         }
     };
 
@@ -86,8 +84,15 @@ public class LoginFragment extends ToolBarFragment<LoginPresenterImpl, LoginMode
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mLoginManager = new LoginManager(context, mThirdLoginListener);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mLoginManager = null;
     }
 
     @Override
@@ -153,11 +158,9 @@ public class LoginFragment extends ToolBarFragment<LoginPresenterImpl, LoginMode
             Intent intent = new Intent(getActivity(), FindPwdActivity.class);
             startActivity(intent);
         } else if (i == R.id.btn_login_weChat) {
-            showProgress();
-            LoginUtil.login(getActivity(), LoginPlatform.WX, mLoginListener, true);
+            mLoginManager.loginWithWechat(getActivity());
         } else if (i == R.id.btn_login_QQ) {
-            showProgress();
-            LoginUtil.login(getActivity(), LoginPlatform.QQ, mLoginListener, true);
+            mLoginManager.loginWithQQ(getActivity());
         }
     }
 
@@ -189,5 +192,10 @@ public class LoginFragment extends ToolBarFragment<LoginPresenterImpl, LoginMode
     public void loginFailed(String error) {
         hideProgress();
         ToastUtils.showShort(error);
+    }
+
+    @Override
+    public void preLogin(BaseUser baseUser, boolean needBind) {
+
     }
 }

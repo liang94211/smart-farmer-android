@@ -1,58 +1,32 @@
 package com.beanu.l2_shareutil.share;
 
-import com.sina.weibo.sdk.api.share.BaseResponse;
-import com.sina.weibo.sdk.api.share.IWeiboHandler;
-import com.sina.weibo.sdk.constant.WBConstants;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.UiError;
-
-import static com.beanu.l2_shareutil.ShareLogger.INFO;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * Created by shaohui on 2016/11/18.
  */
 
-public abstract class ShareListener implements IUiListener, IWeiboHandler.Response {
-    @Override
-    public final void onComplete(Object o) {
-        shareSuccess();
-    }
+public abstract class ShareListener implements UMShareListener {
 
     @Override
-    public final void onError(UiError uiError) {
-        shareFailure(
-                new Exception(uiError == null ? INFO.DEFAULT_QQ_SHARE_ERROR : uiError.errorDetail));
+    public void onStart(SHARE_MEDIA share_media) {
+
     }
 
     @Override
-    public final void onCancel() {
-        shareCancel();
+    public void onResult(SHARE_MEDIA share_media) {
+
     }
 
     @Override
-    public final void onResponse(BaseResponse baseResponse) {
-        switch (baseResponse.errCode) {
-            case WBConstants.ErrorCode.ERR_OK:
-                shareSuccess();
-                break;
-            case WBConstants.ErrorCode.ERR_FAIL:
-                shareFailure(new Exception(baseResponse.errMsg));
-                break;
-            case WBConstants.ErrorCode.ERR_CANCEL:
-                shareCancel();
-                break;
-            default:
-                shareFailure(new Exception(baseResponse.errMsg));
-        }
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
     }
 
-    public abstract void shareSuccess();
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
 
-    public abstract void shareFailure(Exception e);
-
-    public abstract void shareCancel();
-
-    // 用于缓解用户焦虑
-    public void shareRequest() {
     }
+
 }
